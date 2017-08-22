@@ -1,0 +1,625 @@
+
+==============================================================================
+WEBCAM NEURAL NET CLASSIFICATION --  DRAFT NOTES
+
+/home/victoria/projects/computer_vision/keras_js_canvas/drafts/webcam neural net classification -  draft notes.txt
+==============================================================================
+
+
+[2016-Dec-17]
+
+Old file ("webcam.py" : mentioned in notes, below; no longer exists)
+
+    /home/victoria/projects/computer_vision/inception/keras/webcam.py
+
+Superseded by
+
+    /home/victoria/projects/computer_vision/keras_js_canvas/resnet-50.py
+    /home/victoria/projects/computer_vision/keras_js_canvas/webcam_resnet-50.py
+
+
+==============================================================================
+VIDEOIO ERROR: V4L2... ERROR
+============================
+
+Webcam not connected (e.g. in use by web page):
+
+    (py27) [victoria@victoria keras]$ date
+       Sat Dec 17 11:15:14 PST 2016
+
+    (py27) [victoria@victoria keras]$ pwd
+        /home/victoria/projects/computer_vision/inception/keras
+
+    (py27) [victoria@victoria keras]$ python webcam.py
+
+            Hello Victoria!
+
+        Using Theano backend.
+        (Subtensor{int64}.0, Elemwise{add,no_inplace}.0, Elemwise{add,no_inplace}.0, Subtensor{int64}.0)
+        VIDEOIO ERROR: V4L2: Pixel format of incoming image is unsupported by OpenCV
+        Unable to stop the stream: Device or resource busy
+
+
+SOLUTION:
+=========
+
+UNPLUG / REPLUG WEBCAM:
+
+    (py27) [victoria@victoria keras]$ python 2>/dev/null webcam.py
+
+        Hello Victoria!
+
+        (Subtensor{int64}.0, Elemwise{add,no_inplace}.0, Elemwise{add,no_inplace}.0, Subtensor{int64}.0)
+        ('time', 2.001358985900879)
+        <module 'keras.preprocessing.image' from '/mnt/Vancouver/apps/keras/keras/preprocessing/image.pyc'>
+
+        ('Predicted:', [(u'n04548362', u'wallet', 0.13664742), (u'n03085013', u'computer_keyboard', 0.088974498), (u'n03929660', u'pick', 0.060761038)])
+        ('time', 17.1664400100708)
+        <module 'keras.preprocessing.image' from '/mnt/Vancouver/apps/keras/keras/preprocessing/image.pyc'>
+
+        ('Predicted:', [(u'n07565083', u'menu', 0.1007983), (u'n04548362', u'wallet', 0.094084367), (u'n03692522', u'loupe', 0.048046578)])
+        ('time', 17.660133123397827)
+        <module 'keras.preprocessing.image' from '/mnt/Vancouver/apps/keras/keras/preprocessing/image.pyc'>
+
+        ('Predicted:', [(u'n03085013', u'computer_keyboard', 0.22563089), (u'n03793489', u'mouse', 0.10051881), (u'n02787622', u'banjo', 0.070385896)])
+        ('time', 18.05138897895813)
+        <module 'keras.preprocessing.image' from '/mnt/Vancouver/apps/keras/keras/preprocessing/image.pyc'>
+
+        ('Predicted:', [(u'n03085013', u'computer_keyboard', 0.20862281), (u'n02787622', u'banjo', 0.14942639), (u'n03793489', u'mouse', 0.07491643)])
+        ('time', 18.589198112487793)
+        <module 'keras.preprocessing.image' from '/mnt/Vancouver/apps/keras/keras/preprocessing/image.pyc'>
+
+        ('Predicted:', [(u'n03085013', u'computer_keyboard', 0.21888418), (u'n03793489', u'mouse', 0.16697088), (u'n02787622', u'banjo', 0.089085616)])
+        ('time', 19.052399158477783)
+        <module 'keras.preprocessing.image' from '/mnt/Vancouver/apps/keras/keras/preprocessing/image.pyc'>
+
+        ('Predicted:', [(u'n03085013', u'computer_keyboard', 0.89510715), (u'n03642806', u'laptop', 0.043491047), (u'n03793489', u'mouse', 0.037895963)])
+        ('time', 19.478732109069824)
+        <module 'keras.preprocessing.image' from '/mnt/Vancouver/apps/keras/keras/preprocessing/image.pyc'>
+
+        ('Predicted:', [(u'n03085013', u'computer_keyboard', 0.89594078), (u'n03642806', u'laptop', 0.047871377), (u'n03793489', u'mouse', 0.030274646)])
+        ('time', 19.9303081035614)
+        <module 'keras.preprocessing.image' from '/mnt/Vancouver/apps/keras/keras/preprocessing/image.pyc'>
+
+        ('Predicted:', [(u'n03085013', u'computer_keyboard', 0.85847265), (u'n03642806', u'laptop', 0.066993326), (u'n03793489', u'mouse', 0.046033476)])
+        ('time', 20.444474935531616)
+        <module 'keras.preprocessing.image' from '/mnt/Vancouver/apps/keras/keras/preprocessing/image.pyc'>
+
+        ('Predicted:', [(u'n03085013', u'computer_keyboard', 0.84513015), (u'n03642806', u'laptop', 0.10685194), (u'n03793489', u'mouse', 0.024101658)])
+        ('time', 20.906368017196655)
+        <module 'keras.preprocessing.image' from '/mnt/Vancouver/apps/keras/keras/preprocessing/image.pyc'>
+
+        ('Predicted:', [(u'n03085013', u'computer_keyboard', 0.85885906), (u'n03642806', u'laptop', 0.082893521), (u'n03793489', u'mouse', 0.024950843)])
+        ('time', 21.347090005874634)
+        <module 'keras.preprocessing.image' from '/mnt/Vancouver/apps/keras/keras/preprocessing/image.pyc'>
+
+        ('Predicted:', [(u'n03085013', u'computer_keyboard', 0.87821722), (u'n03642806', u'laptop', 0.080474034), (u'n03793489', u'mouse', 0.026362237)])
+        ('time', 21.878859043121338)
+        <module 'keras.preprocessing.image' from '/mnt/Vancouver/apps/keras/keras/preprocessing/image.pyc'>
+
+        ('Predicted:', [(u'n03085013', u'computer_keyboard', 0.87244838), (u'n03642806', u'laptop', 0.083099648), (u'n03793489', u'mouse', 0.021647863)])
+        ('time', 22.34886407852173)
+        <module 'keras.preprocessing.image' from '/mnt/Vancouver/apps/keras/keras/preprocessing/image.pyc'>
+
+        ('Predicted:', [(u'n03085013', u'computer_keyboard', 0.75754726), (u'n03642806', u'laptop', 0.15093489), (u'n03832673', u'notebook', 0.026529551)])
+        ('time', 22.767070055007935)
+        <module 'keras.preprocessing.image' from '/mnt/Vancouver/apps/keras/keras/preprocessing/image.pyc'>
+
+        ('Predicted:', [(u'n03642806', u'laptop', 0.49303681), (u'n03085013', u'computer_keyboard', 0.29926306), (u'n03452741', u'grand_piano', 0.03019652)])
+        ('time', 23.241333961486816)
+        <module 'keras.preprocessing.image' from '/mnt/Vancouver/apps/keras/keras/preprocessing/image.pyc'>
+
+        ('Predicted:', [(u'n03085013', u'computer_keyboard', 0.366045), (u'n03642806', u'laptop', 0.35892773), (u'n03832673', u'notebook', 0.10803039)])
+        ('time', 23.727142095565796)
+        <module 'keras.preprocessing.image' from '/mnt/Vancouver/apps/keras/keras/preprocessing/image.pyc'>
+
+        ('Predicted:', [(u'n02113624', u'toy_poodle', 0.50997424), (u'n03642806', u'laptop', 0.10721689), (u'n03085013', u'computer_keyboard', 0.074448511)])
+        ('time', 24.23550295829773)
+        <module 'keras.preprocessing.image' from '/mnt/Vancouver/apps/keras/keras/preprocessing/image.pyc'>
+
+        ('Predicted:', [(u'n02113624', u'toy_poodle', 0.51232225), (u'n02098105', u'soft-coated_wheaten_terrier', 0.12375434), (u'n04399382', u'teddy', 0.098068468)])
+        ('time', 24.73554301261902)
+        <module 'keras.preprocessing.image' from '/mnt/Vancouver/apps/keras/keras/preprocessing/image.pyc'>
+
+        ('Predicted:', [(u'n02113624', u'toy_poodle', 0.53883374), (u'n02098105', u'soft-coated_wheaten_terrier', 0.11935917), (u'n04399382', u'teddy', 0.082803778)])
+        ('time', 25.11761212348938)
+        <module 'keras.preprocessing.image' from '/mnt/Vancouver/apps/keras/keras/preprocessing/image.pyc'>
+
+        ('Predicted:', [(u'n02113624', u'toy_poodle', 0.44995835), (u'n02098105', u'soft-coated_wheaten_terrier', 0.25795823), (u'n02098286', u'West_Highland_white_terrier', 0.086652249)])
+        ('time', 25.54029107093811)
+        <module 'keras.preprocessing.image' from '/mnt/Vancouver/apps/keras/keras/preprocessing/image.pyc'>
+
+        ('Predicted:', [(u'n02113624', u'toy_poodle', 0.64461184), (u'n02098105', u'soft-coated_wheaten_terrier', 0.067798287), (u'n04399382', u'teddy', 0.061631747)])
+        ('time', 25.957744121551514)
+        <module 'keras.preprocessing.image' from '/mnt/Vancouver/apps/keras/keras/preprocessing/image.pyc'>
+
+    (py27) [victoria@victoria keras]$
+
+
+==============================================================================
+[2016-Dec-20]
+=============
+
+[victoria@victoria ~]$ date
+    Tue Dec 20 09:49:26 PST 2016
+
+[victoria@victoria ~]$ sudo mknod /dev/video0 c 81 0
+    [sudo] password for victoria:
+
+[victoria@victoria ~]$ l /dev/video*                            ## l is my ~/.bashrc alias for: la -l
+
+    crw-r--r--  1 root root  81, 0 Dec 20 09:05 /dev/video0
+    crw-rw----+ 1 root video 81, 1 Dec 20 08:48 /dev/video1
+
+[victoria@victoria ~]$ chown root:video /dev/video0
+    chown: changing ownership of '/dev/video0': Operation not permitted
+
+[victoria@victoria ~]$ sudo chown root:video /dev/video0
+[victoria@victoria ~]$ l /dev/video*
+
+    crw-r--r--  1 root video 81, 0 Dec 20 09:05 /dev/video0
+    crw-rw----+ 1 root video 81, 1 Dec 20 09:08 /dev/video1
+
+[victoria@victoria ~]$ v4l2ucp
+[victoria@victoria ~]$ sudo chgrp video /dev/video0
+[victoria@victoria ~]$ sudo ln -s /dev/video0 /dev/video
+[victoria@victoria ~]$ v4l2ucp
+
+[victoria@victoria ~]$ l /dev/video*
+
+    lrwxrwxrwx  1 root root     11 Dec 20 09:16 /dev/video -> /dev/video0
+    crw-rw----+ 1 root video 81, 0 Dec 20 09:18 /dev/video0
+
+[victoria@victoria ~]$ l /dev/video*
+
+    lrwxrwxrwx  1 root root     11 Dec 20 09:16 /dev/video -> /dev/video0
+    crw-rw----+ 1 root video 81, 0 Dec 20 09:18 /dev/video0
+    crw-rw----+ 1 root video 81, 1 Dec 20 09:29 /dev/video1
+
+[victoria@victoria ~]$ lsusb
+
+    Bus 004 Device 002: ID 8087:8001 Intel Corp.
+    Bus 004 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+    Bus 003 Device 002: ID 8087:8009 Intel Corp.
+    Bus 003 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+    Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+    Bus 001 Device 004: ID 04f9:029e Brother Industries, Ltd MFC-9125CN
+    Bus 001 Device 047: ID 046d:0825 Logitech, Inc. Webcam C270
+    Bus 001 Device 005: ID 05ac:024f Apple, Inc.
+    Bus 001 Device 003: ID 05ac:1006 Apple, Inc. Hub in Aluminum Keyboard
+    Bus 001 Device 007: ID 047d:1020 Kensington Expert Mouse Trackball
+    Bus 001 Device 006: ID 1241:f766 Belkin
+    Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+
+[victoria@victoria ~]$
+
+----------------------------------------
+
+missing /dev/video0
+http://www.linuxquestions.org/questions/linux-newbie-8/missing-dev-video0-261133/
+
+How do you reset a USB device from the command line? - Ask Ubuntu
+http://askubuntu.com/questions/645/how-do-you-reset-a-usb-device-from-the-command-line
+
+
+==============================================================================
+WHAT IS USING/BLOCKING MY WEBCAM?
+=================================
+
+(py27) [victoria@victoria keras]$ fuser /dev/video*
+    /dev/video1:         18428m
+
+(py27) [victoria@victoria keras]$ pgrep -l 18428
+(py27) [victoria@victoria keras]$ psgrep -l 18428
+    UID        PID  PPID  C STIME TTY          TIME CMD
+    victoria 18428   835 37 09:46 ?        00:37:40 firefox
+
+(py27) [victoria@victoria keras]$
+
+
+==============================================================================
+[2016-Dec-20]
+=============
+
+(py27) [victoria@victoria keras]$ python webcam.py
+
+            Hello Victoria!
+
+    Using Theano backend.
+    (Subtensor{int64}.0, Elemwise{add,no_inplace}.0, Elemwise{add,no_inplace}.0, Subtensor{int64}.0)
+    ('Predicted:', [(u'n03085013', u'computer_keyboard', 0.090836883), (u'n03832673', u'notebook', 0.054866508), (u'n03782006', u'monitor', 0.054576535), (u'n03642806', u'laptop', 0.049092326), (u'n03179701', u'desk', 0.042362005)])
+    ('Predicted:', [(u'n03085013', u'computer_keyboard', 0.11395068), (u'n03832673', u'notebook', 0.068635017), (u'n03782006', u'monitor', 0.068244778), (u'n03642806', u'laptop', 0.054321907), (u'n03179701', u'desk', 0.053519726)])
+    ('Predicted:', [(u'n03085013', u'computer_keyboard', 0.11146223), (u'n03832673', u'notebook', 0.064819396), (u'n03782006', u'monitor', 0.055814274), (u'n03642806', u'laptop', 0.05251608), (u'n03179701', u'desk', 0.050512604)])
+    ('Predicted:', [(u'n03085013', u'computer_keyboard', 0.077824049), (u'n02098105', u'soft-coated_wheaten_terrier', 0.054034378), (u'n03832673', u'notebook', 0.052669913), (u'n07717556', u'butternut_squash', 0.04854434), (u'n02095570', u'Lakeland_terrier', 0.04548721)])
+
+(py27) [victoria@victoria keras]$
+
+
+==============================================================================
+[2016-Dec-29] GRABBED/RAN A BACKUP COPY OF THAT OLDER "WEBCAM.PY" SCRIPT:
+=========================================================================
+
+[victoria@victoria drafts]$ p2
+  [Anaconda Python 2.7 venv (source activate py27)]
+
+(py27) [victoria@victoria drafts]$ python webcam.py.2016.12.20
+
+        Hello Victoria!
+
+    Using Theano backend.
+    (Subtensor{int64}.0, Elemwise{add,no_inplace}.0, Elemwise{add,no_inplace}.0, Subtensor{int64}.0)
+    VIDEOIO ERROR: V4L2: Pixel format of incoming image is unsupported by OpenCV
+    Unable to stop the stream: Device or resource busy
+
+(py27) [victoria@victoria drafts]$ wcrs
+
+      [resetting USB webcam]
+    [sudo] password for victoria:
+
+    resetting USB (Logitech C270) webcam ...
+    Resetting USB device /dev/bus/usb/001/095
+    Reset successful
+    done!
+
+(py27) [victoria@victoria drafts]$ pwd
+    /home/victoria/projects/computer_vision/keras_js_canvas/drafts
+
+(py27) [victoria@victoria drafts]$ python webcam.py.2016.12.20
+
+        Hello Victoria!
+
+    Using Theano backend.
+    (Subtensor{int64}.0, Elemwise{add,no_inplace}.0, Elemwise{add,no_inplace}.0, Subtensor{int64}.0)
+        Corrupt JPEG data: 1 extraneous bytes before marker 0xd5
+        ('time', 2.0476601123809814)
+        <module 'keras.preprocessing.image' from '/mnt/Vancouver/apps/keras/keras/preprocessing/image.pyc'>
+
+        ('Predicted:', [(u'n02098105', u'soft-coated_wheaten_terrier', 0.097162135), (u'n02095570', u'Lakeland_terrier', 0.077635027), (u'n02094258', u'Norwich_terrier', 0.061147369)])
+        Corrupt JPEG data: 1 extraneous bytes before marker 0xd1
+        ('time', 18.53431510925293)
+        <module 'keras.preprocessing.image' from '/mnt/Vancouver/apps/keras/keras/preprocessing/image.pyc'>
+
+        ('Predicted:', [(u'n04399382', u'teddy', 0.1258963), (u'n02098105', u'soft-coated_wheaten_terrier', 0.086394012), (u'n02095570', u'Lakeland_terrier', 0.063980006)])
+        Corrupt JPEG data: 1 extraneous bytes before marker 0xd5
+        ('time', 19.119856119155884)
+        <module 'keras.preprocessing.image' from '/mnt/Vancouver/apps/keras/keras/preprocessing/image.pyc'>
+
+        ('Predicted:', [(u'n04399382', u'teddy', 0.098085918), (u'n02095570', u'Lakeland_terrier', 0.060274817), (u'n02098105', u'soft-coated_wheaten_terrier', 0.057782322)])
+        Corrupt JPEG data: 1 extraneous bytes before marker 0xd5
+        ('time', 19.891978979110718)
+        <module 'keras.preprocessing.image' from '/mnt/Vancouver/apps/keras/keras/preprocessing/image.pyc'>
+
+        ('Predicted:', [(u'n02095570', u'Lakeland_terrier', 0.10168768), (u'n04399382', u'teddy', 0.092004202), (u'n02098105', u'soft-coated_wheaten_terrier', 0.076870114)])
+        Corrupt JPEG data: 2 extraneous bytes before marker 0xd7
+        ('time', 20.612969160079956)
+        <module 'keras.preprocessing.image' from '/mnt/Vancouver/apps/keras/keras/preprocessing/image.pyc'>
+
+        ('Predicted:', [(u'n02095570', u'Lakeland_terrier', 0.22562851), (u'n02094258', u'Norwich_terrier', 0.099294387), (u'n04399382', u'teddy', 0.077944718)])
+        Corrupt JPEG data: 1 extraneous bytes before marker 0xd3
+        ('time', 21.220349073410034)
+        <module 'keras.preprocessing.image' from '/mnt/Vancouver/apps/keras/keras/preprocessing/image.pyc'>
+
+        ('Predicted:', [(u'n02095570', u'Lakeland_terrier', 0.74961632), (u'n02098105', u'soft-coated_wheaten_terrier', 0.18552624), (u'n02096051', u'Airedale', 0.017073255)])
+
+    (py27) [victoria@victoria drafts]$
+
+
+==============================================================================
+REFORMATTING THE OUTPUT STRINGS:
+================================
+
+('Predicted:', [(u'n03085013', u'computer_keyboard', 0.090836883), (u'n03832673', u'notebook', 0.054866508), (u'n03782006', u'monitor', 0.054576535), (u'n03642806', u'laptop', 0.049092326), (u'n03179701', u'desk', 0.042362005)])
+
+    ...
+    for item in decode_predictions(preds, top=5)[0]:
+        print str(item[1]) + ': ' + str(item[2])
+    ...
+
+------------------------------------------------------------------------------
+
+(py27) [victoria@victoria keras]$ python webcam.py
+
+        Hello Victoria!
+
+    Using Theano backend.
+    (Subtensor{int64}.0, Elemwise{add,no_inplace}.0, Elemwise{add,no_inplace}.0, Subtensor{int64}.0)
+    computer_keyboard: 0.216575
+    Lakeland_terrier: 0.207142
+    mouse: 0.104275
+    soft-coated_wheaten_terrier: 0.069573
+    notebook: 0.053976
+    ---------------
+    computer_keyboard: 0.258558
+    Lakeland_terrier: 0.138994
+    mouse: 0.126533
+    notebook: 0.0633514
+    soft-coated_wheaten_terrier: 0.0503406
+    ---------------
+    [ ... snip ... ]
+    ---------------
+    Lakeland_terrier: 0.559271
+    soft-coated_wheaten_terrier: 0.203856
+    notebook: 0.0226733
+    hamster: 0.0209905
+    computer_keyboard: 0.0190551
+    ---------------
+    Lakeland_terrier: 0.618883
+    soft-coated_wheaten_terrier: 0.168857
+    hamster: 0.0233768
+    notebook: 0.0229054
+    computer_keyboard: 0.0149598
+    ---------------
+
+(py27) [victoria@victoria keras]$
+
+==============================================================================
+[2016-Dec-26]
+=============
+
+(py27) [victoria@victoria keras]$ date
+    Mon Dec 26 20:24:56 PST 2016
+
+(py27) [victoria@victoria keras]$ pwd
+    /home/victoria/projects/computer_vision/inception/keras
+
+(py27) [victoria@victoria keras]$ l
+
+    total 15M
+    -rw-r--r--  1 victoria victoria  103 Dec 23 16:17 a.csv
+    -rw-r--r--  1 victoria victoria 4.6M Dec 16 21:59 African_Bush_Elephant.jpg
+    -rw-r--r--  1 victoria victoria 2.5K Dec 19 12:42 canvas2.html
+    -rw-r--r--  1 victoria victoria 3.1K Dec 20 10:30 canvas3b.html
+    -rw-r--r--  1 victoria victoria 2.2K Dec 19 17:55 canvas3.html
+    -rw-r--r--  1 victoria victoria 3.2K Dec 20 12:36 canvas4.html
+    -rw-r--r--  1 victoria victoria 2.9K Dec 22 15:39 canvas.html
+    -rw-r--r--  1 victoria victoria  771 Dec 25 11:02 canvasjs-simple_chart.html
+    -rw-r--r--  1 victoria victoria 2.1K Dec 19 14:14 canvas-x.html
+    drwxr-xr-x  3 victoria victoria 4.0K Dec 24 20:14 css
+    -rw-r--r--  1 victoria victoria 4.6M Dec 16 21:59 elephant.jpg
+    -rw-r--r--  1 victoria victoria 4.6M Dec 16 21:59 elephant.jpg2
+    -rw-r--r--  1 victoria victoria  43K Dec 22 19:00 frame2.jpg
+    -rw-r--r--  1 victoria victoria  28K Dec 26 20:24 frame.jpg
+    -rw-r--r--  1 victoria victoria  18K Dec 16 21:00 inception_v3.py
+    -rw-r--r--  1 victoria victoria    0 Dec 16 16:30 __init__.py
+    drwxr-xr-x 28 victoria victoria 4.0K Dec 23 17:00 node_modules
+    -rw-r--r--  1 victoria victoria 1.5K Dec 16 22:05 resnet.py
+    -rw-r--r--  1 victoria victoria   79 Dec 20 19:37 server.coffee
+    -rw-r--r--  1 victoria victoria  270 Dec 19 11:25 server.py
+    drwxr-xr-x  2 victoria victoria 4.0K Dec 20 15:48 static
+    -rw-r--r--  1 victoria victoria 3.9K Dec 20 12:09 wc2.html
+    -rw-r--r--  1 victoria victoria 7.8K Dec 23 15:54 wc3a.html
+    -rw-r--r--  1 victoria victoria 9.1K Dec 24 21:12 wc3b.html
+    -rw-r--r--  1 victoria victoria 7.5K Dec 25 11:09 wc3.html
+    -rw-r--r--  1 victoria victoria 6.4K Dec 25 11:14 wc4a.html
+    -rw-r--r--  1 victoria victoria  13K Dec 26 20:18 wc4b.html
+    -rw-r--r--  1 victoria victoria 6.4K Dec 25 11:14 wc4.html
+    -rw-r--r--  1 victoria victoria 6.1K Dec 23 10:43 webcam_canvas_test1.html
+    -rw-r--r--  1 victoria victoria 4.3K Dec 20 15:49 webcam_canvas_test1.html.2016.12.20
+    -rw-r--r--  1 victoria victoria 6.9K Dec 22 21:18 webcam_canvas_test2.html
+    -rw-r--r--  1 victoria victoria 6.6K Dec 23 11:34 webcam_canvas_test3.html
+    -rw-r--r--  1 victoria victoria  130 Dec 26 20:24 webcam.csv
+    -rw-r--r--  1 victoria victoria   97 Dec 26 11:21 webcam.csv.bak
+    -rw-r--r--  1 victoria victoria 1.5K Dec 22 19:50 webcam_cv2.py
+    -rw-r--r--  1 victoria victoria 9.4K Dec 23 14:47 webcam.py
+    -rw-r--r--  1 victoria victoria 6.5K Dec 19 16:01 webcam.py.2016.12.19
+    -rw-r--r--  1 victoria victoria 6.6K Dec 20 15:46 webcam.py.2016.12.20
+    -rw-r--r--  1 victoria victoria 120K Dec 14 18:33 Yellowstone-wolf-17120b.jpg
+    -rw-r--r--  1 victoria victoria 120K Dec 14 18:33 Yellowstone-wolf-17120b.jpg2
+    drwxr-xr-x  4 victoria victoria 4.0K Dec 18 19:53 zzz
+
+(py27) [victoria@victoria keras]$ python webcam.py
+
+    Lakeland_terrier: 0.660278
+    soft-coated_wheaten_terrier: 0.108233
+    Airedale: 0.0704486
+    toy_poodle: 0.0293923
+    Sealyham_terrier: 0.0182977
+    ...
+
+==============================================================================
+
+(py27) [victoria@victoria keras]$ python webcam.py
+
+        Hello Victoria!
+
+    Using Theano backend.
+    (Subtensor{int64}.0, Elemwise{add,no_inplace}.0, Elemwise{add,no_inplace}.0, Subtensor{int64}.0)
+    libv4l2: error setting pixformat: Device or resource busy
+    ...
+    libv4l2: error setting pixformat: Device or resource busy
+    VIDEOIO ERROR: V4L2: Pixel format of incoming image is unsupported by OpenCV
+
+(py27) [victoria@victoria keras]$ wcrs
+
+  [resetting USB webcam]
+[sudo] password for victoria:
+
+resetting USB (Logitech C270) webcam ...
+Resetting USB device /dev/bus/usb/001/079
+Reset successful
+done!
+
+(py27) [victoria@victoria keras]$ python webcam.py
+
+        Hello Victoria!
+
+    Using Theano backend.
+    (Subtensor{int64}.0, Elemwise{add,no_inplace}.0, Elemwise{add,no_inplace}.0, Subtensor{int64}.0)
+    ...
+
+==============================================================================
+==============================================================================
+MISCELLANY:
+==============================================================================
+==============================================================================
+
+genekogan/keras-js: Run trained Keras models in the browser, with GPU support
+https://github.com/genekogan/keras-js
+
+fork:
+
+    Keras.js webcam demo
+    https://ml4a.github.io/demos/keras.js/
+
+Applications - Keras Documentation
+https://keras.io/applications/#resnet50
+
+HTML Canvas Reference
+http://www.w3schools.com/tags/ref_canvas.asp
+
+------------------------------------------------------------------------------
+
+WEBCAM, CANVAS-RELATED:
+=======================
+
+Camvas by cbrandolino
+http://cbrandolino.github.io/camvas/
+
+cbrandolino/camvas: HTML5 webcam to canvas stream
+https://github.com/cbrandolino/camvas
+
+----------------------------------------
+
+HTML5 Canvas Image Tutorial
+http://www.html5canvastutorials.com/tutorials/html5-canvas-images/
+
+html - HTML5 - how to align two canvases of different heights at the top? - Stack Overflow
+http://stackoverflow.com/questions/30621094/html5-how-to-align-two-canvases-of-different-heights-at-the-top
+
+    Victoria: short answer -- use a <div></div> + container (CSS); beautifully illustrated here:
+
+        HTML5 Canvas Tutorial for beginners - w3resource
+        http://www.w3resource.com/html5-canvas/
+
+------------------------------------------------------------------------------
+
+Accessing Your Webcam in HTML5 | kirupa.com
+https://www.kirupa.com/html5/accessing_your_webcam_in_html5.htm
+
+------------------------------------------------------------------------------
+
+css3 - align video and canvas side by side in HTML5 - Stack Overflow
+http://stackoverflow.com/questions/26568047/allign-video-and-canvas-side-by-side-in-html5
+
+links to:
+
+JS Bin - Collaborative JavaScript Debugging
+http://jsbin.com/qibemuxuxo/1/edit?html,output
+
+
+==============================================================================
+
+Call a python function within a html file - Stack Overflow
+http://stackoverflow.com/questions/5615228/call-a-python-function-within-a-html-file
+
+    You'll need to use a web framework to route the requests to Python, as you can't do that with just HTML. Flask is one simple framework:
+
+    server.py:
+    ----------
+
+        from flask import Flask, render_template
+        app = Flask(__name__)
+
+        @app.route('/')
+        def index():
+          return render_template('template.html')
+
+        @app.route('/my-link/')
+        def my_link():
+          print 'I got clicked!'
+
+          return 'Click.'
+
+        if __name__ == '__main__':
+          app.run(debug=True)
+
+
+    templates/template.html:
+    ------------------------
+
+        <!doctype html>
+
+        <title>Test</title>
+        <meta charset=utf-8>
+
+        <a href="/my-link/">Click me</a>
+
+    Run it with python server.py and then navigate to http://localhost:5000/. The development server isn't secure, so for deploying your application, look at http://flask.pocoo.org/docs/0.10/quickstart/#deploying-to-a-web-server
+
+------------------------------------------------------------------------------
+
+HOWTO Use Python in the web  -  Python 2.7.13 documentation
+https://docs.python.org/2/howto/webservers.html
+
+    List of frameworks:
+
+        WebFrameworks - Python Wiki
+        https://wiki.python.org/moin/WebFrameworks
+
+        Flask (0.11.1 Released 2016-06-07) is "a microframework for Python based on Werkzeug, Jinja 2 and good intentions." Includes a built-in development server, unit tesing support, and is fully Unicode-enabled with RESTful request dispatching and WSGI compliance.
+
+------------------------------------------------------------------------------
+
+basic way to execute python script from HTML : raspberry_pi
+https://www.reddit.com/r/raspberry_pi/comments/2yys8m/basic_way_to_execute_python_script_from_html/
+
+    > ...
+    If you were familiar with Flask, I would recommend just making a button which links to a function in your Flask app. Since you're probably not using Flask (though, you should; It's a totally Python-based web framework which its more lightweight than Django!), your best bet is to use PHP to call an OS command. It's not super secure, but it'll work for your purposes. More info
+
+    That's about the only way to do it. Seriously, though, I highly recommend using Flask for a Raspberry Pi-based web server. Not only does it give you a nice, easy-to-understand web and templating framework, it also lets you run Python code EASILY from a webpage.
+
+    > If you plan on ever doing more python related web work, this is worth learning and setting up. Alternatively you can look into python-cgi, but I found flask easiest and most lightweight/extensible.
+
+    > The best part is that a lot of Flask knowledge transfers painlessly into the more enterprise-oriented Django framework. You can apply skills you learned using Flask as a hobbyist to actual, I-have-a-paying-job level work.
+      AND! Django > Ruby on Rails because screw Ruby >:(
+      (BUT, seriously, a lot of Flask/Django skills ALSO translate pretty well to Ruby on Rails stuff, which gives you even more web development street cred)
+      All that said, I have literally never seen a professional or enterprise usage of python-cgi on Apache. I'm sure they exist, I've just never worked with them nor have I met anyone who has. There's probably a reason for that!
+      (BTW Tourus, this isn't a dig at your recommendation for python-cgi. I just thought I'd mention how little of it I'd seen in the wild!)
+
+------------------------------------------------------------------------------
+
+http://stackoverflow.com/questions/5615228/call-a-python-function-within-a-html-file
+
+(py27) [victoria@victoria ~]$ node  /mnt/Vancouver/apps/caffejs/node_modules/.bin/http-server -p 5000
+
+
+==============================================================================
+FLASK:          ## http://flask.pocoo.org/
+======
+
+Flask (0.11.1 Released 2016-06-07) is "a microframework for Python based on Werkzeug, Jinja 2 and good intentions." Includes a built-in development server, unit tesing support, and is fully Unicode-enabled with RESTful request dispatching and WSGI compliance.
+
+http://flask.pocoo.org/
+
+------------------------------------------------------------------------------
+
+Streaming data with Python and Flask - Stack Overflow
+http://stackoverflow.com/questions/13386681/streaming-data-with-python-and-flask
+
+
+==============================================================================
+JAVA | JAVASCRIPT:
+==================
+
+MLDB.ai Blog
+http://blog.mldb.ai/blog/posts/2016/10/deepteach/
+
+MLDB: the open-source Machine Learning Database
+https://mldb.ai/
+
+MLDB: The Machine Learning Database
+http://www.kdnuggets.com/2016/10/mldb-machine-learning-database.html
+
+
+==============================================================================
+
+Face detection using HTML5, javascript, webrtc, websockets, Jetty and OpenCV | Smartjava.org
+http://www.smartjava.org/content/face-detection-using-html5-javascript-webrtc-websockets-jetty-and-javacvopencv
+
+
+==============================================================================
+==============================================================================
+END OF FILE
+==============================================================================
+==============================================================================
+

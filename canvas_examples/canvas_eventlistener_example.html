@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<HTML xmlns="http://w3.org/1999/xhtml" lang="en-US">
+
+<!--
+/home/victoria/projects/computer_vision/inception/keras/canvas-x.html
+
+http://jsfiddle.net/WxmQR/1477/
+-->
+
+<HEAD>
+<meta charset="UTF-8">
+<meta name="description" content="some description">
+<meta name="keywords" content="comma,separated,list">
+
+<TITLE>canvas test</TITLE>
+
+<style type="text/css">
+    canvas{
+        border: 1px black solid;
+        display: none;
+    }
+
+    img {
+        display: block;
+        border: 1px solid black;
+        min-height: 45px;
+    }
+</style>
+
+<!--
+http://stackoverflow.com/questions/3896537/should-i-size-a-textarea-with-css-width-height-or-html-cols-rows-attributes
+-->
+<style type="text/css">
+    textarea {
+        width: 500px;
+        height: 50px;
+    }
+</style>
+
+<link rel="stylesheet" href="../css/main.css">
+
+</HEAD>
+
+<BODY>
+<UL>
+
+<p>
+Hello Victoria! 😀
+<br />
+<br />
+
+Canvas 1:<br />
+<canvas id='textCanvas' height=30></canvas>
+<img id='image'>
+
+<br />
+
+Victoria: the <code><font size=2><b>canvas</b></font></code> and it's accompanying <code><font size=2><b>javascript</b></font></code> code can be placed in the <code><font size=2><b>HEAD</b></font></code></font></code> or <code><font size=2><b>BODY</b></font></code> sections,<br />but the javascript code must (apparently) follow the canvas code.
+
+<p>
+Canvas 2:<br />
+<canvas id='textCanvas2' height=30></canvas>
+<img id='image2'>
+
+<p><hr size=2 color=red width=750 align=left><p>
+
+<b>Type some text in the box, below:</b>
+<br />
+[Can drag to resize]
+
+<p>
+<textarea id='text'></textarea>
+
+<script type="text/javascript">
+    var tCtx = document.getElementById('textCanvas').getContext('2d'),
+        imageElem = document.getElementById('image');
+
+    var tCtx2 = document.getElementById('textCanvas2').getContext('2d'),
+        imageElem2 = document.getElementById('image2');
+
+    document.getElementById('text').addEventListener('keyup', function (){
+
+        tCtx.canvas.width = tCtx.measureText(this.value).width;
+        tCtx.font="14px Ravie";
+        tCtx.fillText(this.value, .5, 15);
+        imageElem.src = tCtx.canvas.toDataURL();
+        console.log(imageElem.src);
+
+        tCtx2.canvas.width = tCtx2.measureText(this.value).width;
+        tCtx2.font="28px Arial";
+        tCtx2.fillText(this.value, .5, 25);
+        imageElem2.src = tCtx2.canvas.toDataURL();
+        console.log(imageElem2.src);
+    }, false);
+</script>
+
+</UL>
+</BODY>
+</HTML>
+
