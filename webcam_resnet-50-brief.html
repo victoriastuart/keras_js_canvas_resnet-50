@@ -1,0 +1,205 @@
+
+<!doctype html>
+<HTML lang="en">
+
+<!-- /home/victoria/projects/computer_vision/keras_js_canvas/webcam_resnet-50-brief.html -->
+
+<HEAD>
+
+<meta charset="utf-8">
+<TITLE>Victoria&rsquo;s Webcam Demo [Keras-js; ResNet-50]</TITLE>
+<meta name="description" content="">
+
+
+<!-- Need following for this JQuery statement: $.get("out/webcam.csv", function(data) ... -->
+<script type="text/javascript" src="css/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="css/canvasjs.min.js"></script>
+
+<script type="text/javascript">
+    window.onload = function () {
+        // http://canvasjs.com/docs/charts/how-to/create-charts-from-csv/
+        function getDataPointsFromCSV(csv) {
+            var dataPoints = csvLines = points = [];
+            //csvLines = csv.split(/[\r?\n|\r|\n]+/);
+            // http://stackoverflow.com/questions/15433188/r-n-r-n-what-is-the-difference-between-them
+            csvLines = csv.split('\n');
+
+            for (var i = 0; i < csvLines.length; i++)
+                if (csvLines[i].length > 0) {
+                    points = csvLines[i].split(",");
+                    dataPoints.push({
+                        y: parseFloat(points[1]),
+                        //label: parseFloat(points[1]),
+                        label: " ",
+                        indexlabel: String(points[0])
+                    });
+                }
+            return dataPoints;
+        }
+
+        // http://stackoverflow.com/questions/7431268/how-to-read-data-from-csv-file-using-javascript
+        var myVar = setInterval(myTimer, 1000);
+        function myTimer() {
+            $.get("out/webcam.csv", function(data) {
+                var chart = new CanvasJS.Chart("chartContainer", {
+                    title: {
+                        text: "Top-5 Probability",
+                        fontFamily: "Verdana",
+                        fontColor: "Peru",
+                        fontSize: 14
+
+                    },
+                    animationEnabled: false,
+                    // http://canvasjs.com/docs/charts/chart-options/axisy/
+                    axisY: {
+                        // http://canvasjs.com/docs/charts/chart-options/axisx/valueformatstring/
+                        //valueFormatString:  "#0.000",
+                        //minimum: 0.001,
+                        maximum: 1.0,
+                        interval: 0.1,
+                        //reversed: true,
+                        tickThickness: 0,
+                        lineThickness: 0,
+                        //lineThickness: 1,
+                        valueFormatString: " ",
+                        gridThickness: 0.75          /* "vertical" lines */
+                    },
+                    // http://canvasjs.com/docs/charts/chart-options/axisx/
+                    axisX: {
+                        // http://canvasjs.com/docs/charts/chart-options/axisx/valueformatstring/
+                        //valueFormatString:  "#0.000",
+                        tickThickness: 0,
+                        lineThickness: 0,
+                        labelFontSize: 12,
+                        labelFontColor: "Peru"
+
+                    },
+                    data: [
+                    {
+                        // http://canvasjs.com/docs/charts/chart-options/axisx/valueformatstring/
+                        //indexLabel: "{x}, {y}",
+                        //indexLabel: "{label}, {indexlabel}, {y}",
+                        indexLabel: "{y}: {indexlabel}",
+                        //xValueFormatString: "#0.000",
+                        yValueFormatString: "#0.000",
+
+                        indexLabelFontSize: 14,
+                        //toolTipContent: "<span style='\"'color: {color};'\"'><strong>{indexLabel}</strong></span><span style='\"'font-size: 20px; color:peru '\"'><strong>{y}</strong></span>",
+                        // note (following): "indexlabel" (all lowercase), NOT "indexLabel" :
+                        toolTipContent: "<span style='\"'color: {color};'\"'><strong>{indexlabel}: </strong></span><span style='\"'font-size: 20px; color:peru '\"'><strong>{y}</strong></span>",
+                        indexLabelPlacement: "inside",          /* auto | inside | outside */
+                        //indexLabelOrientation: "horizontal",
+                        //indexLabelFontColor: "magenta",
+                        indexLabelFontColor: "brown",
+                        indexLabelFontWeight: 600,
+                        indexLabelFontFamily: "Verdana",
+                        color: "#62C9C3",
+                        //color: "#abcabc",
+                        //color: "#abc",
+                        //color: "#cbacba",
+                        type: "bar",
+                        dataPoints: getDataPointsFromCSV(data),
+                    }
+                    ]
+                });
+
+                // http://canvasjs.com/forums/topic/order-by-value/
+                // http://jsfiddle.net/canvasjs/11nrh8u1/
+                function compareDataPointYAscend(dataPoint1, dataPoint2) {
+                    return dataPoint1.y - dataPoint2.y;
+                }
+                //function compareDataPointYDescend(dataPoint1, dataPoint2) {
+                    //return dataPoint2.y - dataPoint1.y;
+                //}
+                // ascending order:
+                chart.options.data[0].dataPoints.sort(compareDataPointYAscend);
+                // descending order:
+                //chart.options.data[0].dataPoints.sort(compareDataPointYDescend);
+
+                chart.render();
+
+            }, "text");
+        }
+    }
+</script>
+
+<!-- http://stackoverflow.com/questions/30621094/html5-how-to-align-two-canvases-of-different-heights-at-the-top -->
+<style>
+    .container {
+        width:968px;                  /* (320 + 4) + (640 + 4) */
+        height: 282px;                  /* (280 + 2) */
+        border: 2px solid blue;
+        /* border: none; */
+        padding: 2px;
+        /* margin: 25px; */
+        margin-top: 0px;
+        margin-right: 0px;
+        margin-bottom: 0px;
+        margin-left: 25px;
+    }
+
+    .container > * {
+        display: inline-block;
+        vertical-align: top;
+        /* border: 5px solid magenta; */       /* debug purposes */
+        border: none;
+    }
+</style>
+
+</HEAD>
+
+<BODY>
+<UL>
+
+<div class="container">
+    <canvas id="webcam_grab" width="360" height="280"></canvas>
+    &nbsp;
+    <div id="chartContainer" style="height: 99%; width: 61.5%;"></div>
+</div>
+
+<!-- ============================================================================== -->
+<!-- SCRIPTS: -->
+<!-- ============================================================================== -->
+
+<!--
+Webcam frame resized in "/home/victoria/projects/computer_vision/keras_js_canvas/webcam_resnet-50.py" to: (360, 280)
+-->
+<div>
+<script type="text/JavaScript">
+    var canvas = document.getElementById('webcam_grab');
+    var context = canvas.getContext('2d');
+    var imageObj = new Image();
+
+    imageObj.src = 'out/frame.jpg';
+
+    imageObj.onload = function() {
+        context.drawImage(imageObj, 0, 0);
+        var d = new Date();
+        ////context.fillStyle = 'cyan';
+        ////context.font = "16px serif";
+        ////context.fillText(d.toLocaleTimeString(), 220, 200);
+        ////context.font = "16px serif";
+        ////context.fillText("Live preview", 370, 320);
+
+        var text = d.toLocaleDateString() + "  " + d.toLocaleTimeString();
+        var maxWidth = 200;
+        var x = imageObj.width-10-maxWidth;
+        var y = imageObj.height-10;
+        context.font = "20px serif";
+        context.fillStyle = 'cyan';
+        context.fillText(text, x, y, maxWidth);
+    };
+    imageObj.src = 'out/frame.jpg';
+
+    var myVar = setInterval(myTimer, 500);
+    function myTimer() {
+        imageObj.src = 'out/frame.jpg?random='+new Date().getTime();
+    }
+</script>
+</div>
+
+</UL>
+</BODY>
+</HTML>
+
+
