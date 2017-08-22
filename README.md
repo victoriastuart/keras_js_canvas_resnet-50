@@ -3,6 +3,9 @@ Resnet-50 image classifier in web browser
 
 Some work/experiments I did ~8 months ago; provided here, "as-is" (Arch Linux x86_64; ...).  I don't have all the libraries installed anymore as I had to re-install Arch Linux recently, but all the pieces should be there.  Email or create an Issue if something's missing; for platform-specific installs, you're basically on your own, however.  Sorry: busy on other projects ... :-p
 
+I don't have a GPU, so the frame rates are slow, but still impressive (enough); e.g. the "Kazam" video stream catures (MP4 videos) in the ```demos``` folder; see also the "byzanz" low-res screen captures (animated GIFs) in the ``` drafts``` folder.  :-)
+
+
 Abbreviated notes, here.  See the webpage HTML code for webpage-related notes, and the python script for additional comments. Briefly, however:
 
 Dependencies:
